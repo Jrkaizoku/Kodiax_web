@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KodimaxModelStoreContainer" CdmEntityContainer="KodimaxContext">
+    <EntitySetMapping Name="Candy">
+      <EntityTypeMapping TypeName="KodimaxModel.Candy">
+        <MappingFragment StoreEntitySet="Candy">
+          <ScalarProperty Name="id_candy" ColumnName="id_candy" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movie">
+      <EntityTypeMapping TypeName="KodimaxModel.Movie">
+        <MappingFragment StoreEntitySet="Movie">
+          <ScalarProperty Name="id_movie" ColumnName="id_movie" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room">
+      <EntityTypeMapping TypeName="KodimaxModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="id_room" ColumnName="id_room" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ticket">
+      <EntityTypeMapping TypeName="KodimaxModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="id_ticket" ColumnName="id_ticket" />
+          <ScalarProperty Name="id_movie" ColumnName="id_movie" />
+          <ScalarProperty Name="id_room" ColumnName="id_room" />
+          <ScalarProperty Name="butaca" ColumnName="butaca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketCandy">
+      <EntityTypeMapping TypeName="KodimaxModel.TicketCandy">
+        <MappingFragment StoreEntitySet="TicketCandy">
+          <ScalarProperty Name="id_ticket_candy" ColumnName="id_ticket_candy" />
+          <ScalarProperty Name="id_candy" ColumnName="id_candy" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

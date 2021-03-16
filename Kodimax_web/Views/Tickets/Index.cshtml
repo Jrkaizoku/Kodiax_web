@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Kodimax_web.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_movie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.butaca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movie.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Room.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_movie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.butaca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Room.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_ticket }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_ticket }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_ticket })
+        </td>
+    </tr>
+}
+
+</table>

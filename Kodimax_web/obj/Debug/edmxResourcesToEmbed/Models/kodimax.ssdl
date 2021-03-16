@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KodimaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Candy">
+    <Key>
+      <PropertyRef Name="id_candy" />
+    </Key>
+    <Property Name="id_candy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="price" Type="float" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="id_movie" />
+    </Key>
+    <Property Name="id_movie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="duration" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="id_room" />
+    </Key>
+    <Property Name="id_room" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="price" Type="float" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="id_ticket" />
+    </Key>
+    <Property Name="id_ticket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_movie" Type="int" Nullable="false" />
+    <Property Name="id_room" Type="int" Nullable="false" />
+    <Property Name="butaca" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TicketCandy">
+    <Key>
+      <PropertyRef Name="id_ticket_candy" />
+    </Key>
+    <Property Name="id_ticket_candy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_candy" Type="int" Nullable="false" />
+    <Property Name="total" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Ticket_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="id_movie" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="id_ticket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Room">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="id_room" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="id_room" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketCandy_Candy">
+    <End Role="Candy" Type="Self.Candy" Multiplicity="1" />
+    <End Role="TicketCandy" Type="Self.TicketCandy" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Candy">
+        <PropertyRef Name="id_candy" />
+      </Principal>
+      <Dependent Role="TicketCandy">
+        <PropertyRef Name="id_ticket_candy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KodimaxModelStoreContainer">
+    <EntitySet Name="Candy" EntityType="Self.Candy" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TicketCandy" EntityType="Self.TicketCandy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Ticket_Movie" Association="Self.FK_Ticket_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Room" Association="Self.FK_Ticket_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketCandy_Candy" Association="Self.FK_TicketCandy_Candy">
+      <End Role="Candy" EntitySet="Candy" />
+      <End Role="TicketCandy" EntitySet="TicketCandy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

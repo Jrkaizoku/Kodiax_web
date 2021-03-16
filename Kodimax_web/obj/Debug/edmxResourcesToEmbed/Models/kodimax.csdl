@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KodimaxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Candy">
+    <Key>
+      <PropertyRef Name="id_candy" />
+    </Key>
+    <Property Name="id_candy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Double" />
+    <NavigationProperty Name="TicketCandy" Relationship="Self.FK_TicketCandy_Candy" FromRole="Candy" ToRole="TicketCandy" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="id_movie" />
+    </Key>
+    <Property Name="id_movie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_Movie" FromRole="Movie" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="id_room" />
+    </Key>
+    <Property Name="id_room" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Double" />
+    <Property Name="quantity" Type="Int32" />
+    <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_Room" FromRole="Room" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="id_ticket" />
+    </Key>
+    <Property Name="id_ticket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_movie" Type="Int32" Nullable="false" />
+    <Property Name="id_room" Type="Int32" Nullable="false" />
+    <Property Name="butaca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Movie" Relationship="Self.FK_Ticket_Movie" FromRole="Ticket" ToRole="Movie" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Ticket_Room" FromRole="Ticket" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="TicketCandy">
+    <Key>
+      <PropertyRef Name="id_ticket_candy" />
+    </Key>
+    <Property Name="id_ticket_candy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_candy" Type="Int32" Nullable="false" />
+    <Property Name="total" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Candy" Relationship="Self.FK_TicketCandy_Candy" FromRole="TicketCandy" ToRole="Candy" />
+  </EntityType>
+  <Association Name="FK_TicketCandy_Candy">
+    <End Role="Candy" Type="Self.Candy" Multiplicity="1" />
+    <End Role="TicketCandy" Type="Self.TicketCandy" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Candy">
+        <PropertyRef Name="id_candy" />
+      </Principal>
+      <Dependent Role="TicketCandy">
+        <PropertyRef Name="id_ticket_candy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="id_movie" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="id_ticket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Room">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="id_room" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="id_room" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KodimaxContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Candy" EntityType="Self.Candy" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" />
+    <EntitySet Name="Room" EntityType="Self.Room" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" />
+    <EntitySet Name="TicketCandy" EntityType="Self.TicketCandy" />
+    <AssociationSet Name="FK_TicketCandy_Candy" Association="Self.FK_TicketCandy_Candy">
+      <End Role="Candy" EntitySet="Candy" />
+      <End Role="TicketCandy" EntitySet="TicketCandy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Movie" Association="Self.FK_Ticket_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Room" Association="Self.FK_Ticket_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
